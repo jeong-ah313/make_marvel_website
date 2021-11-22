@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <!-- Webpage Title -->
+        <title>영화 | Korea, Hello Marvel!</title>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                showReview(); //로딩되자마자 불림
+            });
+
+            function makeReview() {
+                let name = $('#name').val()
+                let movie = $('#movie').val()
+                let review = $('#review').val()
+
+                $.ajax({
+                    type: "POST",
+                    url: "/review",
+                    data: {name_give:name,movie_give:movie,review_give:review},
+                    success: function (response) {
+                        alert(response["msg"]);
+                        window.location.reload();
+                    }
+                })
+            }
+
+            function showReview() {
+                $.ajax({
+                    type: "GET",
+                    url: "/review",
+                    data: {},
+                    success: function (response) {
+                        let reviews = response['all_reviews']
+                        for (let i = 0; i < reviews.length; i++) {
+                            let name = reviews[i]['name']
+                            let movie= reviews[i]['movie']
+                            let review = reviews[i]['review']
+
+                            let temp_html = `<tr>
+                                                <td>${name}</td>
+                                                <td>${movie}</td>
+                                                <td>${review}</td>
+                                            </tr>`
+                            $('#reviews-box').append(temp_html)
+                        }
+                    }
+                })
+            }
+
+        </script>
+
+
+    <style>
+        .a {
+            margin: 80px 75px 80px 75px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="a">
+    <div>
+        <div class="mb-3">
+            <label class="form-label">id</label>
+            <input id="name" type="text" placeholder="Jeongah">
+            <label class="form-label" style="margin-left: 40px;">영화제목</label>
+            <input id="movie" type="text" list="영화종류" placeholder="--영화 선택--">
+            <datalist id="영화종류">
+                <option value="캡틴 아메리카: 퍼스트어벤져"></option>
+                <option value="아이언맨"></option>
+                <option value="인크레더블 헐크"></option>
+                <option value="아이언맨2"></option>
+                <option value="토르: 천둥의 신"></option>
+                <option value="어벤져스"></option>
+                <option value="아이언맨3"></option>
+                <option value="토르: 다크월드"></option>
+                <option value="캡틴 아메리카: 위터솔져"></option>
+                <option value="가디언즈 오브 갤럭시1"></option>
+                <option value="가디언즈 오브 갤럭시2"></option>
+                <option value="어벤져스: 에이지오브울트론"></option>
+                <option value="앤트맨"></option>
+                <option value="캡틴 아메리카: 시빌워"></option>
+                <option value="닥터 스트레인지"></option>
+                <option value="스파이더맨: 홈커밍"></option>
+                <option value="토르: 라그나로크"></option>
+                <option value="블랙팬서"></option>
+                <option value="어벤져스: 인피니티 워"></option>
+                <option value="앤트맨과 와스프"></option>
+                <option value="캡틴마블"></option>
+                <option value="어벤져스: 엔드게임"></option>
+                <option value="블랙위도우"></option>
+                <option value="기타는 직접 적어주세요"></option>
+            </datalist>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">영화후기(감상평)</label>
+            <textarea id="review" class="form-control" rows="3"></textarea>
+        </div>
+        <button onclick="makeReview()" type="submit" class="btn btn-primary">등록</button>
+    </div>
+
+    <br><br><br>
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">영화제목</th>
+                <th scope="col">후기(감상평)</th>
+            </tr>
+            </thead>
+
+            <tbody id="reviews-box">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+
+<!-- FOOTER -->
+<footer>
+    <p style="text-align: center;">MARVEL 공식 홈페이지 : <a href="https://www.marvel.com/">https://www.marvel.com/</a></p>
+    <p style="text-align: center;"> 페이지에 대한 문의사항이 있으시면 연락주세요:) ajs8809@naver.com</p>
+    <p class="float-end" style="text-align: center;"><a href="#">Back to top</a></p>
+</footer>
+<br>
+<hr>
+<br>
+<p style="text-align: center; font-size: 25px"> 더 이상 내리셔도 아무것도 없어요😅 </p>
+
+</body>
+</html>
