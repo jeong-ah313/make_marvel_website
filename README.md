@@ -1,5 +1,8 @@
 # make_marvel_website
 
+marvel_website 소개 영상: https://youtu.be/h88Vt5OZKAI
+
+
 주제: 마블 입문자들을 위한 웹사이트 제작(완성x)=>아직 미완성=>it's not final
 
 제작동기: 평소에 마블을 즐겨보기 때문에, 친구들에게도 마블을 쉽게 접하고 입문할 수 있도록 해주고 싶었습니다.
